@@ -9,6 +9,8 @@
 // calls reallocate
 #define GROW_ARRAY(type, pointer, oldCount, newCount) (type*)reallocate(pointer, sizeof(type)*oldCount, sizeof(type) * newCount)
 
+#define FREE_ARRAY(type, pointer, oldCount) reallocate(pointer, sizeof(type) * oldCount, 0);
+
 //use for all dynamic memory management in clox—allocating memory, freeing it, and changing the size of an existing allocation.
 void* reallocate(void* pointer, size_t oldSize, size_t newSize);
 
