@@ -8,9 +8,14 @@ typedef double Value;
 
 typedef struct {
 
-    int count;
-    int capacity;
-    Value* values;
+    int count; // stores the address of the next free position to store the value.
+    int capacity; // total capacity of the values array
+    Value* values; // pointe to memory in the heap representing this array.
+    
 }ValueArray;
+
+void initValueArray(ValueArray* array);
+void writeValueArray(ValueArray* array, Value value);
+void freeValueArray(ValueArray* array);
 
 #endif

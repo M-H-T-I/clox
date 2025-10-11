@@ -9,7 +9,7 @@ void* reallocate(void* pointer, size_t old_size, size_t newSize){
     }
 
     void* result = realloc(pointer, newSize);
-    if(result == NULL) exit(1);
+    if(result == NULL) exit(1); // no more memory available
     return result;
 
 
