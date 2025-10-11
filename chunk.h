@@ -4,6 +4,7 @@
 #define clox_chunk_h
 
 #include "common.h"
+#include "value.h"
 
 // all possible bytecode instructions like the ones in assembly
 typedef enum{
@@ -20,10 +21,13 @@ typedef struct {
     // a pointer to a bytecode opcode
     uint8_t* code;
 
+    ValueArray constants;
+
 }Chunk;
 
 void initChunk(Chunk* chunk);
 void writeChunk(Chunk* chunk, uint8_t byte);
 void freeChunk(Chunk* chunk);
+int addConstant(Chunk* chunk, Value value); // an explicit function used to add values to the contant's values array. Calls writeValueArray and returns the index where value was stored
 
 #endif 
