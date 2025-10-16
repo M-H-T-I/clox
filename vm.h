@@ -3,6 +3,7 @@
 
 #include "chunk.h"
 
+// runs a chunk struct 
 typedef struct {
 
     Chunk* chunk;
