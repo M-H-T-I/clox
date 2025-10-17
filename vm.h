@@ -2,6 +2,9 @@
 #define clox_vm_h
 
 #include "chunk.h"
+#include "value.h"
+
+#define STACK_MAX 256
 
 // runs a chunk struct 
 typedef struct {
@@ -12,6 +15,9 @@ typedef struct {
     (in code array in chunk) */
 
     uint8_t* ip;
+
+    Value stack[STACK_MAX];
+    Value* stackTop
 
 }VM;
 
