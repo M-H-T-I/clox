@@ -11,6 +11,10 @@
 typedef enum{
     OP_CONSTANT, // when this instruction is excecuted the vm loads the constant for use.
     OP_NEGATE,
+    OP_ADD,
+    OP_SUBTRACT,
+    OP_MULTIPLY,
+    OP_DIVIDE,
     OP_RETURN, // return value from current function
 } OpCode; 
 

@@ -34,6 +34,7 @@ void freeChunk(Chunk* chunk){
     initChunk(chunk);
 }
 
+// stores the value of the constant in the value array and returns the index of where in that array it was stored. THe index is stored in t he code array
 int addConstant(Chunk* chunk, Value value){
 
     writeValueArray(&chunk->constants, value);
