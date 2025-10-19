@@ -24,6 +24,24 @@ static void repl(){
   }
 }
 
+static char* readFile(const char* path){
+
+  FILE* file = fopen(path, "rb");
+
+
+  fseek(file, 0L, SEEK_END); // go to the end of the file
+  size_t fileSize = ftell(file); // tells us how many bytes we are from the start of the file
+  rewind(file); // goes back to the start of the file
+
+  char* buffer = (char*)malloc(fileSize + 1);
+  size_t bytesRead = fread(buffer, sizeof(char), fileSize, file);
+  buffer[bytesRead] = '\0'; 
+
+  fclose(file);
+  return buffer;
+
+}
+
 static void runFile(const char* path){
   char* source = readFile(path);
   InterpretResult result = interpret(source);
