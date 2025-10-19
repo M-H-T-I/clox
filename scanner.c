@@ -55,6 +55,11 @@ static Token errorToken(const char* message){
     return token;
 }
 
+static char advance(){
+    scanner.current++;
+    return scanner.current[-1];
+}
+
 Token scanToken(){
     scanner.start = scanner.current; 
     
@@ -63,6 +68,8 @@ Token scanToken(){
     char c = advance();
 
     switch (c) {
+
+        // single character tokens
         case '(': return makeToken(TOKEN_LEFT_PAREN);
         case ')': return makeToken(TOKEN_RIGHT_PAREN);
         case '{': return makeToken(TOKEN_LEFT_BRACE);
@@ -74,6 +81,16 @@ Token scanToken(){
         case '+': return makeToken(TOKEN_PLUS);
         case '/': return makeToken(TOKEN_SLASH);
         case '*': return makeToken(TOKEN_STAR);
+
+        // single character tokens which can be double character tokens:
+        case '!': 
+            return makeToken(match('=') ? TOKEN_BANG_EQUAL:TOKEN_BANG);
+        case '=':
+            return makeToken(match('=') ? TOKEN_EQUAL_EQUAL : TOKEN_EQUAL);
+        case '<':
+            return makeToken(match('=') ? TOKEN_LESS_EQUAL : TOKEN_LESS);
+        case '>':
+            return makeToken(match('=') ? TOKEN_GREATER_EQUAL : TOKEN_GREATER);
     }
 
     return errorToken("Unexpected character.");
