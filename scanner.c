@@ -23,10 +23,58 @@ void initScanner(const char* source){
 
 }
 
+// helper functions:
+
+// returns true if current is at the end of the file.
+static bool isAtEnd(){
+    return *scanner.current == '\0';
+}
+
+// makes a tokn of the given type.
+static Token makeToken(TokenType type){
+
+    Token token;
+
+    token.type = type;
+    token.start = scanner.start;
+    token.line = scanner.line;
+    token.length = (int) (scanner.start - scanner.current);
+
+    return token;
+
+}
+
+// creates an error token for the compiler to process when an error occurs.
+static Token errorToken(const char* message){
+    Token token;
+    token.type = TOKEN_ERROR;
+    token.start = message;
+    token.length = (int) strlen(message);
+    token.line = scanner.line;
+
+    return token;
+}
+
 Token scanToken(){
     scanner.start = scanner.current; 
     
     if(isAtEnd()) return makeToken(TOKEN_EOF);
 
-    return errorToken("Unexpected character.")
+    char c = advance();
+
+    switch (c) {
+        case '(': return makeToken(TOKEN_LEFT_PAREN);
+        case ')': return makeToken(TOKEN_RIGHT_PAREN);
+        case '{': return makeToken(TOKEN_LEFT_BRACE);
+        case '}': return makeToken(TOKEN_RIGHT_BRACE);
+        case ';': return makeToken(TOKEN_SEMICOLON);
+        case ',': return makeToken(TOKEN_COMMA);
+        case '.': return makeToken(TOKEN_DOT);
+        case '-': return makeToken(TOKEN_MINUS);
+        case '+': return makeToken(TOKEN_PLUS);
+        case '/': return makeToken(TOKEN_SLASH);
+        case '*': return makeToken(TOKEN_STAR);
+    }
+
+    return errorToken("Unexpected character.");
 }
